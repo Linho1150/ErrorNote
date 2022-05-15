@@ -61,47 +61,58 @@
     </div>
 
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-      <h1 class="display-4 fw-normal"><%= nickname %> ErrorCode</h1>
+      <h1 class="display-4 fw-normal"><%=nickname%>ErrorCode</h1>
       <p class="fs-5 text-muted">개발과정에서 발생되었던 에러코드를 함께 공유하여 Error를 빠르게 수정하자</p>
     </div>
   </header>
 
   <main>
-    <% for(var i = 0 ; i < readData.arr.length ; i++ ){ %>
     <div class="card">
-        <h5 class="card-header">ErrorCode [ <%= readData.arr[i].errorCode %> ] </h5>
-        <div class="card-body">
-            <h5 class="card-title">Language</h5>
-            <p class="card-text"><%= readData.arr[i].language %></p>
-            <h5 class="card-title">Problem</h5>
-            <p class="card-text"><%= readData.arr[i].problem %></p>
-            <h5 class="card-title">Solution</h5>
-            <p class="card-text"><%= readData.arr[i].solution %></p>
-            <a href="/<%= readData.arr[i].errfile %>" class="btn btn-danger">View ErrorFile</a>
-            <a href="/<%= readData.arr[i].solfile %>" class="btn btn-success">View Solution File</a>
-            <a href="/write/<%= i %>" class="btn btn-dark">Edit</a>
-            <button onclick="del('<%= i %>')" class="btn btn-warning">Remove</button>
-        </div>
+        <h5 class="card-header">Write ErrorCode</h5>
+         <div class="card-body">
+            <div class="mb-3">
+              <h5 class="card-title">ErrorCode</h5>
+              <input type="text" class="form-control" id="inputErrorCode" name="errorCode" placeholder="ErrorCode" value="<%= readData.errorCode %>">
+            </div>
+            <div class="mb-3">
+              <h5 class="card-title">Language</h5>
+              <input type="text" class="form-control" id="inputLanguage" name="language" placeholder="Javascript" value="<%= readData.language %>">
+            </div>
+            <div class="mb-3">
+              <h5 class="card-title">Problem</h5>
+              <input type="text" class="form-control" id="inputProblem" name="problem" placeholder="오류가 나는 이유를 설명해주세요" value="<%= readData.problem %>">
+            </div>
+            <div class="mb-3">
+              <h5 class="card-title">Solution</h5>
+              <textarea class="form-control" id="inputSolution" rows="3" name="solution" placeholder="해결 방법을 설명해주세요" ><%= readData.solution %></textarea>
+            </div>
+            <button onclick="put('<%= cnt %>')" class="btn btn-success" style="width: 100%;" value="등록">등록</button>
+          </div>
     </div>
-    <br>
-    <% } %>
-
   </main>
   <br>
   <hr>
   <%-include('footer.ejs') %>
-  </div>
+</div>
   </body>
   <script>
-    const body=document.querySelector('body');
-    function del(cnt){
-      body.innerHTML="";
+    const inputErrorCode = document.getElementById('inputErrorCode');
+    const inputLanguage = document.getElementById('inputLanguage');
+    const inputProblem = document.getElementById('inputProblem');
+    const inputSolution = document.getElementById('inputSolution');
+
+    async function put(cnt){
       axios({
-        method: 'delete', //통신 방식
-        url: '/'+cnt, //통신할 페이지
-      })
-      .then(
-        location.reload()
+        method: 'PUT', //통신 방식
+        data: {
+          errorCode:inputErrorCode.value,
+          language:inputLanguage.value,
+          problem:inputProblem.value,
+          solution:inputSolution.value,
+        },
+        url: cnt, //통신할 페이지
+      }).then(
+        location.href='/'
       );
     }
   </script>

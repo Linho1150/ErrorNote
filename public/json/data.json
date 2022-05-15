@@ -1,1 +1,1 @@
-{}
+{"arr":[{"errorCode":"SyntaxError: invalid syntax line 19","language":"Python","problem":"문법 적인 오류가 발생하였다.","solution":"line 19 번에서 발생한 문법적 오류를 확인하고 Python 문법에 맞게 올바르게 수정한다."}]}

@@ -68,8 +68,12 @@
   <main>
     <div class="card">
         <h5 class="card-header">Write ErrorCode</h5>
-        <form id="form" action='/write' method='post'>
+        <form id="form" action='/write' method='post' enctype="multipart/form-data">
           <div class="card-body">
+            <div class="mb-3">
+              <h5 class="card-title">ErrorCode</h5>
+              <input type="text" class="form-control" id="inputErrorCode" name="errorCode" placeholder="ErrorCode">
+            </div>
             <div class="mb-3">
               <h5 class="card-title">Language</h5>
               <input type="text" class="form-control" id="inputLanguage" name="language" placeholder="Javascript">
@@ -97,12 +101,7 @@
   </main>
   <br>
   <hr>
-  <footer>
-    <p>The ErrorCode service was created on May 13, 2022.</p>
-  </footer>
-</div>
-
-
-    
+  <%-include('footer.ejs') %>
+  </div>
   </body>
 </html>
