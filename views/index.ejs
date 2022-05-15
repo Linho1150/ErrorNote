@@ -67,10 +67,11 @@
   </header>
 
   <main>
+    <!-- Object 형식으로 넘오은 값을 순차적으로 출력한다. 오브젝트명은 readData이다 -->
     <% for(var i = 0 ; i < readData.arr.length ; i++ ){ %>
     <div class="card">
         <h5 class="card-header">ErrorCode [ <%= readData.arr[i].errorCode %> ] </h5>
-        <div class="card-body">
+        <div class="card-body"><!-- 예를들어 readData 오브젝트중 첫번째 오브젝트의 errorCode 값을 출력한다 -->
             <h5 class="card-title">Language</h5>
             <p class="card-text"><%= readData.arr[i].language %></p>
             <h5 class="card-title">Problem</h5>
@@ -88,7 +89,7 @@
 
   </main>
   <br>
-  <hr>
+  <hr><!-- footer를 로드한다. -->
   <%-include('footer.ejs') %>
   </div>
   </body>

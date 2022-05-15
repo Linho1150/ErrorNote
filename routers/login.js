@@ -9,11 +9,13 @@ router.get('/',(req,res,next)=>{
     }
     return res.render('login',{nickname:nickname+" "});
 });
+//로그인 페이지 불러오기. 이미 로그인하여 nickname이 있으면 제한
 
 router.get('/logout',(req,res)=>{
     req.session.nickname=undefined;
     return res.redirect('/');
 });
+//로그아웃을 시도하면 쿠키를 지워서 로그아웃 하고 메인페이지로 이동
 
 router.post('/admit',(req,res)=>{
     const { id, password } = req.body;
@@ -31,5 +33,9 @@ router.post('/admit',(req,res)=>{
         res.redirect('/login');
     }
 });
+//로그인을 시도하여 전달 받은 내용이 GUEST / 7777 이면 로그인 성공
+//로그인을 성공하면 입력받은 id 값을 쿠키에 저장
+//expires와 같은 쿠키와 관련된 정보를 준 후에
+//로그인하면 메인페이지로 이동 틀리면 로그인 페이지를 다시 로드
 
 module.exports=router;

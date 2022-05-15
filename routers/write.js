@@ -44,7 +44,8 @@ router.get('/:id',async (req,res,next)=>{
     {
         return res.redirect('/');
     }
-    //수정페이지를 요청하면 반환한다. 
+    //수정페이지를 요청하면 반환한다. 요청한 페이지의 값을 json 데이터에서 추출한 후
+    //수정페이지에서 html을 세팅하여 바로 수정할 수 있도록 함.
 })
 
 router.put('/:id',async (req,res,next)=>{
@@ -67,6 +68,11 @@ router.put('/:id',async (req,res,next)=>{
     await fs.writeFile('./public/json/data.json',JSON.stringify(read));
     return res.redirect('/');
 })
+//수정을 요청하면 기존의 데이터를 미리 저장해두고
+//수정 요청한 데이터를 json 에서 제거하한다
+//제거하고 수정된 데이터를 다시 불러와서
+//제거하기 이전에 데이터중 필요한 데이터를 선별적으로 수정된 데이터와 병합하여
+//다시 Json 파일에 저장하고 메인페이지를 호출한다.
 
 router.post('/',upload.fields([{name:'errfile'},{name:'solfile'}]),async (req,res,next)=>{
     const {errorCode,language,problem,solution}=req.body
@@ -84,8 +90,8 @@ router.post('/',upload.fields([{name:'errfile'},{name:'solfile'}]),async (req,re
     await fs.writeFile('./public/json/data.json',JSON.stringify(data));
     return res.redirect('/');
 });
+//form 태그에서 총 2가지의 파일을 요청하기 때문에 upload.fields로 입력을 받고
+//두개의 파일 서버에 다운받는다. 이후 req.body에 함께 전달된내용을 json 파일에 저장하여
+//데이터를 저장한다.
 
 module.exports=router;
-
-//errfile
-//solfile

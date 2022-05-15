@@ -46,12 +46,11 @@
             <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
             <path d="M6.854 4.646a.5.5 0 0 1 0 .708L4.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0zm2.292 0a.5.5 0 0 0 0 .708L11.793 8l-2.647 2.646a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708 0z"/>
           </svg>
-        <span class="fs-4"><%=nickname%>ErrorCode</span>
+        <span class="fs-4"><%=nickname%>ErrorCode</span> <!-- 로그인했다면 사용자 명을 보여준다. -->
       </a>
-
       <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
         <a class="me-3 py-2 text-dark text-decoration-none" href="/">View</a>
-        <% if(nickname) {%>
+        <% if(nickname) {%>      <!-- nickname 값이 있으면 글쓰기와 로그아웃을 확성화 시키고 없다면 로그인을 활성화시킨다. -->
           <a class="me-3 py-2 text-dark text-decoration-none" href="/write">Write</a>
           <a class="me-3 py-2 text-dark text-decoration-none" href="/login/logout">Logout</a>
         <% }else{ %>
@@ -93,6 +92,7 @@
   <br>
   <hr>
   <%-include('footer.ejs') %>
+  <!-- footer 를 로드한다 -->
 </div>
   </body>
   <script>

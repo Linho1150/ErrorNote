@@ -50,7 +50,7 @@
 
       <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
         <a class="me-3 py-2 text-dark text-decoration-none" href="/">View</a>
-        <% if(nickname) {%>
+        <% if(nickname) {%> <!-- nickname 값이 있으면 글쓰기와 로그아웃을 확성화 시키고 없다면 로그인을 활성화시킨다. -->
           <a class="me-3 py-2 text-dark text-decoration-none" href="/write">Write</a>
           <a class="me-3 py-2 text-dark text-decoration-none" href="/login/logout">Logout</a>
         <% }else{ %>
@@ -102,6 +102,7 @@
   <br>
   <hr>
   <%-include('footer.ejs') %>
+  <!-- footer를 로드한다 -->
   </div>
   </body>
 </html>
