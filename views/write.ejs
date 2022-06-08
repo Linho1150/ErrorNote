@@ -1,15 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="img/favicon.svg">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <link href="css/main.css" rel="stylesheet">
-    <title>ErrorNote</title>
+<html lang="en" class="h-100">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="img/favicon.svg" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+    <link href="css/main.css" rel="stylesheet" />
+    <title>ErrorNote</title>
 
     <style>
       .bd-placeholder-img {
@@ -26,83 +36,96 @@
         }
       }
     </style>
-
   </head>
-  <body>
-    
-<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-  <symbol id="check" viewBox="0 0 16 16">
-    <title>Check</title>
-    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-  </symbol>
-</svg>
+  <body class="h-100">
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+      <symbol id="check" viewBox="0 0 16 16">
+        <title>Check</title>
+        <path
+          d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"
+        />
+      </symbol>
+    </svg>
 
-<div class="container py-3">
-  <header>
-    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
-      <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" fill="currentColor" class="bi bi-code-square" viewBox="0 0 16 16">
-            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-            <path d="M6.854 4.646a.5.5 0 0 1 0 .708L4.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0zm2.292 0a.5.5 0 0 0 0 .708L11.793 8l-2.647 2.646a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708 0z"/>
-          </svg>
-        <span class="fs-4"><%=nickname%>ErrorCode</span>
-      </a>
+    <div class="container py-3">
+      <%-include('header.ejs') %>
 
-      <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-        <a class="me-3 py-2 text-dark text-decoration-none" href="/">View</a>
-        <% if(nickname) {%> <!-- nickname 값이 있으면 글쓰기와 로그아웃을 확성화 시키고 없다면 로그인을 활성화시킨다. -->
-          <a class="me-3 py-2 text-dark text-decoration-none" href="/write">Write</a>
-          <a class="me-3 py-2 text-dark text-decoration-none" href="/login/logout">Logout</a>
-        <% }else{ %>
-          <a class="me-3 py-2 text-dark text-decoration-none" href="/login">Login</a>
-        <% } %>
-      </nav>
+      <main>
+        <div class="card">
+          <h5 class="card-header">ErrorNote 작성하기</h5>
+          <form
+            id="form"
+            action="/write"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <div class="card-body">
+              <div class="mb-3">
+                <label for="errorImg" class="form-label"
+                  >에러 화면 (Image Only)</label
+                >
+                <input
+                  class="form-control"
+                  type="file"
+                  name="errorImg"
+                  id="errorImg"
+                  accept="image/png, image/gif, image/jpeg"
+                />
+              </div>
+              <div class="mb-3">
+                <h5 class="card-title">ErrorCode</h5>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputErrorCode"
+                  name="errorCode"
+                  placeholder="에러코드"
+                />
+              </div>
+              <div class="mb-3">
+                <h5 class="card-title">Language</h5>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputLanguage"
+                  name="language"
+                  placeholder="사용언어"
+                />
+              </div>
+              <div class="mb-3">
+                <h5 class="card-title">Problem</h5>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputProblem"
+                  name="problem"
+                  placeholder="오류가 나는 이유를 설명해주세요"
+                />
+              </div>
+              <div class="mb-3">
+                <h5 class="card-title">Solution</h5>
+                <textarea
+                  class="form-control"
+                  id="inputSolution"
+                  rows="3"
+                  name="solution"
+                  placeholder="해결 방법을 설명해주세요"
+                ></textarea>
+              </div>
+              <input
+                type="submit"
+                class="btn btn-success"
+                style="width: 100%"
+                value="등록"
+              />
+            </div>
+          </form>
+        </div>
+      </main>
+      <br />
+      <hr />
+      <%-include('footer.ejs') %>
+      <!-- footer를 로드한다 -->
     </div>
-
-    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-      <h1 class="display-4 fw-normal"><%=nickname%>ErrorCode</h1>
-      <p class="fs-5 text-muted">개발과정에서 발생되었던 에러코드를 함께 공유하여 Error를 빠르게 수정하자</p>
-    </div>
-  </header>
-
-  <main>
-    <div class="card">
-        <h5 class="card-header">Write ErrorCode</h5>
-        <form id="form" action='/write' method='post' enctype="multipart/form-data">
-          <div class="card-body">
-            <div class="mb-3">
-              <h5 class="card-title">ErrorCode</h5>
-              <input type="text" class="form-control" id="inputErrorCode" name="errorCode" placeholder="ErrorCode">
-            </div>
-            <div class="mb-3">
-              <h5 class="card-title">Language</h5>
-              <input type="text" class="form-control" id="inputLanguage" name="language" placeholder="Javascript">
-            </div>
-            <div class="mb-3">
-              <h5 class="card-title">Problem</h5>
-              <input type="text" class="form-control" id="inputProblem" name="problem" placeholder="오류가 나는 이유를 설명해주세요">
-            </div>
-            <div class="mb-3">
-              <h5 class="card-title">Solution</h5>
-              <textarea class="form-control" id="inputSolution" rows="3" name="solution" placeholder="해결 방법을 설명해주세요"></textarea>
-            </div>
-            <div class="mb-3">
-              <label for="errorfile" class="form-label">ErrorFile Upload</label>
-              <input class="form-control" type="file" name="errfile" id="errfile">
-            </div>
-            <div class="mb-3">
-                <label for="solutionfile" class="form-label">Solution File Upload</label>
-                <input class="form-control" type="file" name="solfile" id="solfile">
-            </div>
-            <input type="submit" class="btn btn-success" style="width: 100%;" value="등록"/>
-          </div>
-        </form>
-    </div>
-  </main>
-  <br>
-  <hr>
-  <%-include('footer.ejs') %>
-  <!-- footer를 로드한다 -->
-  </div>
   </body>
 </html>

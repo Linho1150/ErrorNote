@@ -1,16 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="img/favicon.svg">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
-    <link href="css/main.css" rel="stylesheet">
-    <title>ErrorNote</title>
+<html lang="en" class="h-100">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="img/favicon.svg" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+    <link href="css/main.css" rel="stylesheet" />
+    <title>ErrorNote</title>
 
     <style>
       .bd-placeholder-img {
@@ -27,93 +36,105 @@
         }
       }
     </style>
-
   </head>
-  <body>
-    
-<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-  <symbol id="check" viewBox="0 0 16 16">
-    <title>Check</title>
-    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-  </symbol>
-</svg>
+  <body class="h-100">
+    <div class="container py-3">
+      <%-include('header.ejs') %>
 
-<div class="container py-3">
-  <header>
-    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
-      <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" fill="currentColor" class="bi bi-code-square" viewBox="0 0 16 16">
-            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-            <path d="M6.854 4.646a.5.5 0 0 1 0 .708L4.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0zm2.292 0a.5.5 0 0 0 0 .708L11.793 8l-2.647 2.646a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708 0z"/>
-          </svg>
-        <span class="fs-4"><%=nickname%>ErrorCode</span> <!-- 로그인했다면 사용자 명을 보여준다. -->
-      </a>
-      <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-        <a class="me-3 py-2 text-dark text-decoration-none" href="/">View</a>
-        <% if(nickname) {%>      <!-- nickname 값이 있으면 글쓰기와 로그아웃을 확성화 시키고 없다면 로그인을 활성화시킨다. -->
-          <a class="me-3 py-2 text-dark text-decoration-none" href="/write">Write</a>
-          <a class="me-3 py-2 text-dark text-decoration-none" href="/login/logout">Logout</a>
-        <% }else{ %>
-          <a class="me-3 py-2 text-dark text-decoration-none" href="/login">Login</a>
-        <% } %>
-      </nav>
-    </div>
-
-    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-      <h1 class="display-4 fw-normal"><%=nickname%>ErrorCode</h1>
-      <p class="fs-5 text-muted">개발과정에서 발생되었던 에러코드를 함께 공유하여 Error를 빠르게 수정하자</p>
-    </div>
-  </header>
-
-  <main>
-    <div class="card">
-        <h5 class="card-header">Write ErrorCode</h5>
-         <div class="card-body">
+      <main>
+        <div class="card">
+          <h5 class="card-header">ErrorNote 수정하기</h5>
+          <div class="card-body">
             <div class="mb-3">
               <h5 class="card-title">ErrorCode</h5>
-              <input type="text" class="form-control" id="inputErrorCode" name="errorCode" placeholder="ErrorCode" value="<%= readData.errorCode %>">
+              <input
+                type="text"
+                class="form-control"
+                id="inputErrorCode"
+                name="errorCode"
+                placeholder="에러코드"
+              />
             </div>
             <div class="mb-3">
               <h5 class="card-title">Language</h5>
-              <input type="text" class="form-control" id="inputLanguage" name="language" placeholder="Javascript" value="<%= readData.language %>">
+              <input
+                type="text"
+                class="form-control"
+                id="inputLanguage"
+                name="language"
+                placeholder="사용언어"
+              />
             </div>
             <div class="mb-3">
               <h5 class="card-title">Problem</h5>
-              <input type="text" class="form-control" id="inputProblem" name="problem" placeholder="오류가 나는 이유를 설명해주세요" value="<%= readData.problem %>">
+              <input
+                type="text"
+                class="form-control"
+                id="inputProblem"
+                name="problem"
+                placeholder="오류가 나는 이유를 설명해주세요"
+              ></input>
             </div>
             <div class="mb-3">
               <h5 class="card-title">Solution</h5>
-              <textarea class="form-control" id="inputSolution" rows="3" name="solution" placeholder="해결 방법을 설명해주세요" ><%= readData.solution %></textarea>
+              <textarea
+                class="form-control"
+                id="inputSolution"
+                rows="3"
+                name="solution"
+                placeholder="해결 방법을 설명해주세요"
+              ></textarea>
             </div>
-            <button onclick="put('<%= cnt %>')" class="btn btn-success" style="width: 100%;" value="등록">등록</button>
+            <button
+              class="btn btn-success"
+              style="width: 100%"
+              onclick="change()"
+            >
+              수정
+            </button>
           </div>
+        </div>
+      </main>
+      <br />
+      <hr />
+      <%-include('footer.ejs') %>
+      <!-- footer를 로드한다 -->
     </div>
-  </main>
-  <br>
-  <hr>
-  <%-include('footer.ejs') %>
-  <!-- footer 를 로드한다 -->
-</div>
   </body>
   <script>
-    const inputErrorCode = document.getElementById('inputErrorCode');
-    const inputLanguage = document.getElementById('inputLanguage');
-    const inputProblem = document.getElementById('inputProblem');
-    const inputSolution = document.getElementById('inputSolution');
+    const inputErrorCode = document.getElementById("inputErrorCode");
+    const inputLanguage = document.getElementById("inputLanguage");
+    const inputProblem = document.getElementById("inputProblem");
+    const inputSolution = document.getElementById("inputSolution");
+    let errorId = 0;
 
-    async function put(cnt){
-      axios({
-        method: 'PUT', //통신 방식
-        data: {
-          errorCode:inputErrorCode.value,
-          language:inputLanguage.value,
-          problem:inputProblem.value,
-          solution:inputSolution.value,
-        },
-        url: cnt, //통신할 페이지
-      }).then(
-        location.href='/'
-      );
+    window.onload = settingChartData();
+    function settingChartData() {
+      let result = JSON.parse(`<%- JSON.stringify(data) %>`);
+      inputErrorCode.setAttribute('value',result.errorcode);
+      inputLanguage.setAttribute('value',result.language);
+      inputProblem.setAttribute('value',result.problem);
+      inputSolution.innerHTML = result.solution;
+      errorId = result.errorId;
+    }
+    function change() {
+      axios
+        .put("/write/" + String(errorId), {
+          errorcode: inputErrorCode.value,
+          language: inputLanguage.value,
+          problem: inputProblem.value,
+          solution: inputSolution.value,
+        })
+        .then(function (response) {
+          if (response.data) {
+            location.href = "/";
+          } else {
+            location.href = "/lists";
+          }
+        })
+        .catch(function (error) {
+          location.href = "/lists";
+        });
     }
   </script>
 </html>
