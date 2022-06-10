@@ -1,5 +1,7 @@
 
 *.jpeg
+*.png
+*.jpg
 # Created by https://www.toptal.com/developers/gitignore/api/node,visualstudiocode,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,visualstudiocode,macos
 
