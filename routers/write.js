@@ -50,14 +50,16 @@ router.put(
   async (req, res, next) => {
     const errorId = req.params.id;
     const errorInfo = await ErrorInfo.findOne({ where: { errorId } });
-    if (errorInfo["dataValues"].userId === String(req.user.info.userId)) {
-      const { language, errorCode, problem, solution } = req.body;
+
+    if (errorInfo["dataValues"].userId == String(req.user.info.userId)) {
+      const { language, errorcode, problem, solution, errorId } = req.body;
       ErrorInfo.update(
         {
           language: language,
-          errorcode: errorCode,
+          errorcode: errorcode,
           problem: problem,
           solution: solution,
+          errorId: errorId,
         },
         { where: { errorId } }
       );
