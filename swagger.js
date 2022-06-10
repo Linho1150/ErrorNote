@@ -2,8 +2,8 @@ const swaggerAutogen = require("swagger-autogen")();
 
 const doc = {
   info: {
-    title: "Random Mission Challenge",
-    description: "Random Mission Challenge API",
+    title: "ErrorNote",
+    description: "에러코드를 저장하고 공유하는 서비스",
   },
   host: "localhost:3000",
   schemes: ["http"],
