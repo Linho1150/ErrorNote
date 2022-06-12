@@ -26,9 +26,10 @@ const upload = multer({
 router.get("/", isLoggedIn, (req, res, next) => {
   const nickname = req.user.info.snsnickname;
   return res.render("write", { nickname: nickname });
-  //글쓰기 페이지를 요청하면 들어오는 API 쿠키에 Nickname이 저장되어있으면
-  //로그인되었다고 가정하고 Nickname을 반환한다.
 });
+
+//글쓰기 페이지를 요청하면 들어오는 API
+//로그인 되어있지 않으면 진행할 수 없다.
 
 router.get("/:id", isLoggedIn, async (req, res, next) => {
   const errorId = req.params.id;
@@ -42,6 +43,8 @@ router.get("/:id", isLoggedIn, async (req, res, next) => {
   }
   return res.redirect("/lists");
 });
+//수정페이지를 요청했을떄 기존의 정보를 사용자에게 제공할 수 있도록
+//수정페이지와 동시에 기존의 정보를 함께 전달하여 출력한다.
 
 router.put(
   "/:id",
@@ -68,6 +71,9 @@ router.put(
   }
 );
 
+/* 수정을 요청하면 해당 정보를 바탕으로 업데이트 할 수 있도록 한다.
+다른 사용자가 요청했을때는 업데이트를 진행하지 못하도록 한다. */
+
 router.post(
   "/",
   isLoggedIn,
@@ -86,9 +92,8 @@ router.post(
     return res.redirect("/lists");
   }
 );
-//form 태그에서 총 2가지의 파일을 요청하기 때문에 upload.fields로 입력을 받고
-//두개의 파일 서버에 다운받는다. 이후 req.body에 함께 전달된내용을 json 파일에 저장하여
-//데이터를 저장한다.
+//upload.fields로 에러코드 이미지를 전달받고 파일을 서버의 uploads폴더에 다운받는다.
+//저장한 경로와 입력받은 각종 데이터를 토대로 DB에 저장할 수 있도록 한다.
 
 router.delete("/:id", isLoggedIn, async (req, res) => {
   const errorId = req.params.id;
@@ -100,5 +105,5 @@ router.delete("/:id", isLoggedIn, async (req, res) => {
   }
   return res.json(false);
 });
-//제거 버튼 클릭시 params로 입력받은 값에 해당하는 데이터 제거
+//제거 버튼 클릭시 params로 입력받은 값에 해당하는 데이터 제거한다.
 module.exports = router;

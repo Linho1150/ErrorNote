@@ -9,11 +9,13 @@ const User = require("../models/user");
 let phoneBooks = [];
 let conformBooks = [];
 
-/* GET users listing. */
+/* 회원가입 페이지를 전달함. */
 router.get("/", (req, res, next) => {
   return res.render("signup", { nickname: "" });
 });
 
+/* 요청받은 전화번호로 메세지를 요청받음. 랜덤 값이 부여되고 랜덤값과 휴대폰 번호의 인증번호가
+key와 value형식으로 배열 변수에 저장된다.*/
 router.post("/sms", (req, res, next) => {
   const { phoneNumber } = req.body;
   const certificationNumber = String(
@@ -32,6 +34,9 @@ router.post("/sms", (req, res, next) => {
       res.status(404).json(element);
     });
 });
+/* 사용자의 휴대폰 번호와 인증번호가 올바른지 확인한다. 인증번호를 저장해놨던 변수에
+값을 저장하여 모두 비교해본 후에 인증이 완료되면 다음으로 넘어가기로했다.
+key와 value형식으로 배열 변수에 저장된다.*/
 
 router.post("/conform", (req, res, next) => {
   const { phoneNumber, certificationNumber } = req.body;
@@ -48,6 +53,8 @@ router.post("/conform", (req, res, next) => {
     res.json(false);
   }
 });
+/* 휴대폰 인증시 인증을 받기 phoneBooks안에 요청한 번호가 있는지 확인 
+번호가 있으면 함께 들어었는 번호와 인증번호가 사용자가 다시 전달해준 값이 맞는지 확인*/
 
 router.post("/", isNotLoggedIn, async (req, res, next) => {
   const { phoneNumber, password, nickname } = req.body;
@@ -69,6 +76,8 @@ router.post("/", isNotLoggedIn, async (req, res, next) => {
     return res.json(false);
   }
 });
+/* 값이 정확하게 입력되었는짖, 그리고 가입한 기록이 있는지 확인한 후에 문제가없으면 가입을진행한다.
+과정에서는 비밀번호는 bcrypt를 통해 암호화한다.*/
 
 async function send_message(certificationNumber, phoneNumber) {
   return new Promise(function (resolve, reject) {
@@ -121,5 +130,7 @@ async function send_message(certificationNumber, phoneNumber) {
     );
   });
 }
+/* 네이버 클라우드에서 명세한 API 에 맞게 관련 정보를 요청하여 사용자가 메세지를
+받을 수 도있도록 한다. */
 
 module.exports = router;

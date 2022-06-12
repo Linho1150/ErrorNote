@@ -7,6 +7,7 @@ const session = require("express-session");
 const { sequelize } = require("./models");
 const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("./swagger-output");
+//Swagger를 연결
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -23,7 +24,7 @@ const viewRouter = require("./routers/list");
 const passport = require("passport");
 const ErrorInfo = require("./models/errorInfo");
 
-//각종 라우터를 연결하는 작업
+//시퀄라이즈를 연결
 sequelize
   .sync({ alter: false })
   .then(() => {
@@ -55,12 +56,14 @@ app.use(
 ); //세션의 세부정도에 대한 설정. 시크릿 키는 .env 파일에 저장
 app.use(passport.initialize());
 app.use(passport.session());
+//passport 미들웨어 연결
 
 app.use("/", indexRouter);
 app.use("/lists", viewRouter);
 app.use("/write", writeRouter);
 app.use("/signin", signinRouter);
 app.use("/signup", signupRouter);
+//각종 라우터 연결
 
 app.get("/logout", async (req, res) => {
   req.logout(function (err) {
@@ -70,6 +73,7 @@ app.get("/logout", async (req, res) => {
     res.redirect("/");
   });
 });
+//사용자가 로그아웃 시도시 passport 기능을 통해 로그아웃 할 수 있도록 한다.
 app.use(async (err, req, res, next) => {
   let countLanguage = [];
   const languages = await ErrorInfo.findAll({
@@ -89,6 +93,8 @@ app.use(async (err, req, res, next) => {
     .status(404)
     .render("error", { nickname: "", lanData: countLanguage });
 });
-// 404 오류 표시 및 각종 서버 오류 설정
+// 404 오류 표시 및 각종 서버 오류 설정 오류페이지의 언어별 비율 차트를 보여주기위해
+// DB데이터에 접근하여 정보를 함께 전달한다.
+
 app.listen(app.get("port"), () => {});
 //포트 이름 설정

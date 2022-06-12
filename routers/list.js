@@ -15,8 +15,8 @@ router.get("/", async (req, res, next) => {
   }
   return res.render("list", { nickname: "", readData: errorlist });
 });
-//메인 페이지 요청이 들어왔을 때 json을 불러오고 로그인을 진행해서 쿠키가 있으면 nickname을
-//render시 같이 전송하며 로그인을 안했으면 공백으로 전달
+/* 현재까지 작성된 에러코드를 사용자에게 List ejs와 함께 모두 전달한다.
+로그인되어있다면 nickname 정보를 같이 전달하고 아니면 공백으로 전달한다. */
 
 router.get("/:id", async (req, res, next) => {
   const errorId = req.params.id;
@@ -33,7 +33,7 @@ router.get("/:id", async (req, res, next) => {
       readData: reuslt["dataValues"],
     });
   }
-  //뷰어 페이지, 게시글 하나에 대한 정보를 보여주는 페이지이다.
 });
+/* id에 맞는 특정 게시물을 검색하여 데이터를 전달한다. 로그인 상태면 nickname을 함께 전달한다. */
 
 module.exports = router;

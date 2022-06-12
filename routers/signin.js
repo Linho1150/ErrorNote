@@ -6,7 +6,7 @@ const { isLoggedIn, isNotLoggedIn } = require("./isLogin");
 router.get("/", isNotLoggedIn, (req, res, next) => {
   return res.render("signin", { nickname: "" });
 });
-//로그인 페이지 불러오기. 이미 로그인하여 nickname이 있으면 제한
+//로그인 페이지 불러오기. 로그인이 있으면 페이지를 접근하지 못하도록 한다.
 
 router.get("/logout", (req, res) => {
   req.session.nickname = undefined;
@@ -48,12 +48,12 @@ router.get(
   }
 );
 
+/* 로그아웃 시도. 로그아웃하면 관련 세션을 모두 제거함 */
 router.get("/logout", async (req, res) => {
   req.session.destroy(function (err) {
     req.logout();
     delete req.user;
     req.user = null;
-    console.log("asf");
     res.redirect("/");
   });
 });

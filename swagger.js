@@ -13,3 +13,4 @@ const outputFile = "./swagger-output.json";
 const endpointsFiles = ["./app.js"];
 
 swaggerAutogen(outputFile, endpointsFiles, doc);
+//자동으로 API 문서를 제작하며 문서의 기반이될 정보를 저장

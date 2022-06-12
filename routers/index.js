@@ -29,7 +29,7 @@ router.get("/", async (req, res, next) => {
     return res.render("index", { nickname: "", lanData: countLanguage });
   }
 });
-//메인 페이지 요청이 들어왔을 때 json을 불러오고 로그인을 진행해서 쿠키가 있으면 nickname을
-//render시 같이 전송하며 로그인을 안했으면 공백으로 전달
+/* 메인페이지에 게시글로 등록된 언어의 종류와 비중을 알려주기 위해 데이터를 가져오고
+가져온 데이터를 lanData변수를 통해 전달한다. 또한 로그인되어있으면 nickname정보를 함께 전달한다.*/
 
 module.exports = router;
