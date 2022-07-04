@@ -1,6 +1,9 @@
 # ErrorNote
 2022-1 고급웹프로그래밍과제 제출물 ErrorNote
 
+# 사용한 프레임워크 및 라이브러리
+Nodejs Express, Naver Cloud Platform - Simple & Easy Notification Service, Bootstrap, Chart.js,
+
 # 파일구조 및 파일설명
 
 ```markdown
